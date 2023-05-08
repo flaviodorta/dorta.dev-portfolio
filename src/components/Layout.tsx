@@ -1,12 +1,18 @@
-import React, { useRef, useState } from 'react'
-import { isDesktop, isMobile } from 'react-device-detect'
+import React, { useEffect, useRef, useState } from 'react'
+import { isDesktop } from 'react-device-detect'
 import gsap from 'gsap'
 import { useEventListener } from 'usehooks-ts'
 import { twMerge } from 'tailwind-merge'
-import { cursorStyleVariants, cursorVariants } from '../helpers/variants'
-import { motion } from 'framer-motion'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { cursorVariantAtom } from '../recoil/atoms'
+import {
+  cursorVariantAtom,
+  firstAccessAtom,
+  routerAtom,
+  shouldTransitionAtom,
+} from '../recoil/atoms'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import Intro from '../pages/Intro'
+import Transition from './Transition'
+import { useLocation } from 'react-router-dom'
 
 const Layout = ({
   children,
@@ -41,24 +47,44 @@ const Layout = ({
       duration: 2,
       ease: 'linear',
     })
-
-    // gsap.to(ref.current, {
-    //   width: cursorVariant ? 54 : 16,
-    //   height: cursorVariant ? 54 : 16,
-    //   duration: 0.25,
-    //   ease: 'power.out(1.1, .44)',
-    // })
   }
 
   useEventListener('mousemove', mouseFollower)
 
   useEventListener('scroll', mouseFollower)
 
+  const [isFirstAccess, setIsFirstAccess] = useRecoilState(firstAccessAtom)
+
+  const [shouldTransition, setShouldTransition] =
+    useRecoilState(shouldTransitionAtom)
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout
+
+    if (isFirstAccess) {
+      console.log('here')
+      timer = setTimeout(() => {
+        setShouldTransition(true)
+      }, 2500)
+    }
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  const setRoute = useSetRecoilState(routerAtom)
+
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.pathname === '/') setRoute('/home')
+    else setRoute(location.pathname)
+  }, [location])
+
   return (
     <div
       ref={divRef}
       className={twMerge([
-        'relative w-screen z-50 h-screen min-h-screen overflow-x-hidden text-white bg-black',
+        'relative w-screen z-50 h-screen min-h-screen overflow-hidden text-white bg-black',
       ])}
     >
       {isDesktop && (
@@ -73,7 +99,9 @@ const Layout = ({
         />
       )}
 
-      {children}
+      {shouldTransition && <Transition cb={() => setIsFirstAccess(false)} />}
+
+      {isFirstAccess ? <Intro /> : <>{children}</>}
     </div>
   )
 }

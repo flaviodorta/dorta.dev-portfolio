@@ -5,7 +5,7 @@ import { Typewriter } from '../../components/Typewriter/Typewriter'
 const Hero = () => {
   const strings = [
     'modern & innovative digital solutions',
-    'e-commerces, web systems, landing pages, blogs & much more',
+    'e-commerces, web systems, landing pages, blogs & more',
     'front-end & back-end development',
     'UX & UI best pratices',
   ]

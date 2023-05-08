@@ -46,7 +46,7 @@ const HamburgerMenu = ({
   return (
     <div
       ref={menuIconRef}
-      className="relative group group-hover:bg-transparent z-40 flex items-center justify-end w-[70px] h-[70px]"
+      className="relative cursor-pointer group group-hover:bg-transparent z-40 flex items-center justify-end w-[70px] h-[70px]"
       onClick={onClickMenuIcon}
       onMouseEnter={onMouseEnterMenuIcon}
       onMouseLeave={onMouseLeaveMenuIcon}

@@ -1,17 +1,17 @@
 import { motion, AnimatePresence, Variants } from 'framer-motion'
 import { useRef } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { cursorVariantAtom, soundAtom } from '../../recoil/atoms'
+import { cursorVariantAtom, soundAtom } from '../recoil/atoms'
 import {
   socialIconContainerVariants,
   soundLabelVariants,
-} from '../../helpers/variants'
+} from '../helpers/variants'
 import { TbNorthStar } from 'react-icons/tb'
-import GitHub from '../../components/icons/Github'
-import LinkedIn from '../../components/icons/Linkedin'
-import Instagram from '../../components/icons/Instagram'
-import { useSoundsContext } from '../../context/SoundsContext'
-import { SoundIcon } from '../../components/SoundIcon'
+import GitHub from './icons/Github'
+import LinkedIn from './icons/Linkedin'
+import Instagram from './icons/Instagram'
+import { useSoundsContext } from '../context/SoundsContext'
+import { SoundIcon } from './SoundIcon'
 import { useToggle } from 'usehooks-ts'
 import { twMerge } from 'tailwind-merge'
 
@@ -90,7 +90,7 @@ export const Footer = () => {
 
   return (
     <footer className="flex items-center justify-between">
-      <div className="relative flex flex-col justify-center">
+      <div className="relative flex flex-col justify-center cursor-pointer">
         {/* sound icon */}
         <div
           ref={soundIconRef}
@@ -108,7 +108,7 @@ export const Footer = () => {
               initial="hidden"
               animate="visible"
               exit="hidden"
-              className="hidden md:block left-2 md:absolute whitespace-nowrap font-share-tech font-white font-thin"
+              className="hidden md:block top-4 left-2 md:absolute whitespace-nowrap font-share-tech font-white font-thin"
             >
               sound {isSoundOn ? 'off' : 'on'}
             </motion.div>
@@ -122,7 +122,7 @@ export const Footer = () => {
             {shouldOpenSocialIcons && (
               <>
                 <motion.div
-                  className="social--icon-container group"
+                  className="social--icon-container group cursor-pointer"
                   key={2}
                   variants={socialIconContainerVariants}
                   custom={2}
@@ -137,7 +137,7 @@ export const Footer = () => {
                 </motion.div>
 
                 <motion.div
-                  className="social--icon-container group"
+                  className="social--icon-container group cursor-pointer"
                   key={1}
                   variants={socialIconContainerVariants}
                   custom={1}
@@ -152,7 +152,7 @@ export const Footer = () => {
                 </motion.div>
 
                 <motion.div
-                  className="social--icon-container group"
+                  className="social--icon-container group cursor-pointer"
                   key={0}
                   variants={socialIconContainerVariants}
                   custom={0}
@@ -169,10 +169,10 @@ export const Footer = () => {
             )}
           </AnimatePresence>
 
-          <div className="group relative bottom-2">
+          <div className="group mt-2 relative bottom-2">
             <div
               ref={openSocialsIconsIconRef}
-              className="zflex items-end justify-center group-hover:bg-transparent"
+              className="cursor-pointer flex items-end justify-center group-hover:bg-transparent"
               onMouseEnter={onMouseEnterOpenSocialsIconsIcon}
               onMouseLeave={onMouseLeaveOpenSocialsIconsIcon}
               onClick={onClickOpenSocialsIconsIcon}

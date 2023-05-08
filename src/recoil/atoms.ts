@@ -10,3 +10,18 @@ export const soundAtom = atom({
   key: 'sound',
   default: true,
 })
+
+export const firstAccessAtom = atom({
+  key: 'first-access',
+  default: true,
+})
+
+export const shouldTransitionAtom = atom({
+  key: 'should-transition',
+  default: false,
+})
+
+export const routerAtom = atom({
+  key: 'route',
+  default: '/',
+})

@@ -13,6 +13,7 @@ export default {
       },
       animation: {
         'sound-bar': 'sound-bar 0.60s linear infinite',
+        ['fast-pulse']: 'full-pulse 0.8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         'sound-bar': {
@@ -25,6 +26,11 @@ export default {
           '100%': {
             height: '1px',
           },
+        },
+        ['full-pulse']: {
+          '0%': { opacity: 0 },
+          '50%': { opacity: 1 },
+          '100%': { opacity: 0 },
         },
       },
     },

@@ -79,4 +79,91 @@
   .bar:nth-child(5) {
     animation-delay: 0.48s;
   }
+
+  .block {
+    position: fixed;
+    background: #ed0c32;
+    height: 100vh;
+    width: 0%;
+  }
+
+  .block-1 {
+    left: 0;
+  }
+
+  .block-2 {
+    left: 5%;
+  }
+
+  .block-3 {
+    left: 10%;
+  }
+
+  .block-4 {
+    left: 15%;
+  }
+
+  .block-5 {
+    left: 20%;
+  }
+
+  .block-6 {
+    left: 25%;
+  }
+
+  .block-7 {
+    left: 30%;
+  }
+
+  .block-8 {
+    left: 35%;
+  }
+
+  .block-9 {
+    left: 40%;
+  }
+
+  .block-10 {
+    left: 45%;
+  }
+
+  .block-11 {
+    left: 50%;
+  }
+
+  .block-12 {
+    left: 55%;
+  }
+
+  .block-13 {
+    left: 60%;
+  }
+
+  .block-14 {
+    left: 65%;
+  }
+
+  .block-15 {
+    left: 70%;
+  }
+
+  .block-16 {
+    left: 75%;
+  }
+
+  .block-17 {
+    left: 80%;
+  }
+
+  .block-18 {
+    left: 85%;
+  }
+
+  .block-19 {
+    left: 90%;
+  }
+
+  .block-20 {
+    left: 95%;
+  }
 }

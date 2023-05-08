@@ -7,6 +7,7 @@
 
 # to do
 
+- add cursor pointer to buttons
 - menu backdrop
 - intro
-- transition
+- transition pages

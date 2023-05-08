@@ -1,6 +1,6 @@
 export const SoundIcon = ({ isSoundOn }: { isSoundOn: boolean }) => {
   return (
-    <div className="group container">
+    <div className="relative group container">
       {isSoundOn ? (
         <>
           <div className="transition-colors group-hover:bg-primary duration-[10ms] bar"></div>
