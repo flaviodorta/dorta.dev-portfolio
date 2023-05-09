@@ -4,10 +4,14 @@
 - mouse pointer
 - navbar component
 - space background
+- add cursor pointer to buttons
+- intro
+- transition pages
 
 # to do
 
-- add cursor pointer to buttons
 - menu backdrop
-- intro
-- transition pages
+- about page
+- works page
+- service page
+- contact page

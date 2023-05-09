@@ -6,7 +6,7 @@ const Logo = (props: Props) => {
   return (
     <h1
       className={twMerge([
-        'uppercase tracking-wide flex items-center font-anton text-xl sm:text-4xl',
+        'z-[2000] uppercase tracking-wide flex items-center font-anton text-xl sm:text-4xl',
         props.className,
       ])}
     >

@@ -178,3 +178,47 @@ export const soundLabelVariants: Variants = {
     },
   },
 }
+
+export const firstMenuBackgroundVariants: Variants = {
+  initial: {
+    top: '-100%',
+  },
+  animate: {
+    top: 0,
+    transition: {
+      type: 'spring',
+      bounce: 0,
+      delay: 0.3,
+    },
+  },
+  exit: {
+    top: '-100%',
+    transition: {
+      type: 'spring',
+      bounce: 0,
+      delay: 0.05,
+    },
+  },
+}
+
+export const secondMenuBackgroundVariants: Variants = {
+  initial: {
+    top: '-100%',
+  },
+  animate: {
+    top: 0,
+    transition: {
+      type: 'spring',
+      bounce: 0,
+      delay: 0.14,
+    },
+  },
+  exit: {
+    top: '-100%',
+    transition: {
+      type: 'spring',
+      bounce: 0,
+      delay: 0.12,
+    },
+  },
+}

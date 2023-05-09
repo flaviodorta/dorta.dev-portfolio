@@ -90,7 +90,7 @@ export const Footer = () => {
 
   return (
     <footer className="flex items-center justify-between">
-      <div className="relative flex flex-col justify-center cursor-pointer">
+      <div className="z-[2000] relative flex flex-col justify-center cursor-pointer">
         {/* sound icon */}
         <div
           ref={soundIconRef}
@@ -116,7 +116,7 @@ export const Footer = () => {
         </AnimatePresence>
       </div>
 
-      <div className="w-fit h-[80px] z-40 flex items-end justify-end">
+      <div className="z-[2000] w-fit h-[80px] flex items-end justify-end">
         <div className="flex flex-col gap-4 justify-end items-center">
           <AnimatePresence>
             {shouldOpenSocialIcons && (

@@ -1,6 +1,7 @@
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import {
   firstAccessAtom,
+  isMenuOpenAtom,
   routerAtom,
   shouldTransitionAtom,
 } from '../recoil/atoms'
@@ -18,6 +19,7 @@ const Transition = ({ cb }: { cb?: () => void }) => {
   const [route, setRoute] = useRecoilState(routerAtom)
 
   const setShouldTransition = useSetRecoilState(shouldTransitionAtom)
+  const setIsMenuOpen = useSetRecoilState(isMenuOpenAtom)
 
   const navigate = useNavigate()
 
@@ -38,6 +40,7 @@ const Transition = ({ cb }: { cb?: () => void }) => {
         })
         .call(() => {
           navigate(route)
+          setIsMenuOpen(false)
           cb && cb()
           console.log('first part')
         })
@@ -50,7 +53,7 @@ const Transition = ({ cb }: { cb?: () => void }) => {
             },
             ease: Power1.easeInOut,
           },
-          '+=.5'
+          '+=.79'
         )
         .call(() => {
           setShouldTransition(false)
@@ -62,7 +65,7 @@ const Transition = ({ cb }: { cb?: () => void }) => {
   return (
     <div
       ref={ref}
-      className="fixed  w-screen h-screen z-[2000] -ml-[var(--layout-padding-xsm)] lg:-ml-[var(--layout-padding-lg)] -mt-[var(--layout-padding-xsm)] lg:-mt-[var(--layout-padding-lg)]"
+      className="fixed w-screen h-screen z-[3000] -ml-[var(--layout-padding-xsm)] lg:-ml-[var(--layout-padding-lg)] -mt-[var(--layout-padding-xsm)] lg:-mt-[var(--layout-padding-lg)]"
     >
       <div className="block block-1" />
       <div className="block block-2" />

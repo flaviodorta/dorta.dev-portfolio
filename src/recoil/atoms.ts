@@ -25,3 +25,8 @@ export const routerAtom = atom({
   key: 'route',
   default: '/',
 })
+
+export const isMenuOpenAtom = atom({
+  key: 'is-menu-open',
+  default: false,
+})

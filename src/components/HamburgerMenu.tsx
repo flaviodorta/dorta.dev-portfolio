@@ -3,19 +3,14 @@ import { twMerge } from 'tailwind-merge'
 import { useHover } from 'usehooks-ts'
 import { useSoundsContext } from '../context/SoundsContext'
 
-import { useSetRecoilState } from 'recoil'
-import { cursorVariantAtom } from '../recoil/atoms'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { cursorVariantAtom, isMenuOpenAtom } from '../recoil/atoms'
 
-const HamburgerMenu = ({
-  isMenuOpen,
-  setIsMenuOpen,
-}: {
-  isMenuOpen: boolean
-  setIsMenuOpen: () => void
-}) => {
+const HamburgerMenu = () => {
   const menuIconRef = useRef<HTMLDivElement>(null)
   const setCursorVariant = useSetRecoilState(cursorVariantAtom)
   const isMenuIconHover = useHover(menuIconRef)
+  const [isMenuOpen, setIsMenuOpen] = useRecoilState(isMenuOpenAtom)
 
   const {
     openMenuSoundPlay,
@@ -32,8 +27,9 @@ const HamburgerMenu = ({
   }
 
   const onClickMenuIcon = () => {
-    setIsMenuOpen()
+    setIsMenuOpen(!isMenuOpen)
     openMenuSoundPlay!()
+    console.log(isMenuOpen)
   }
 
   const onMouseEnterMenuIcon = () => {
@@ -46,7 +42,7 @@ const HamburgerMenu = ({
   return (
     <div
       ref={menuIconRef}
-      className="relative cursor-pointer group group-hover:bg-transparent z-40 flex items-center justify-end w-[70px] h-[70px]"
+      className="z-[2000] relative cursor-pointer group group-hover:bg-transparent flex items-center justify-end w-[70px] h-[70px]"
       onClick={onClickMenuIcon}
       onMouseEnter={onMouseEnterMenuIcon}
       onMouseLeave={onMouseLeaveMenuIcon}

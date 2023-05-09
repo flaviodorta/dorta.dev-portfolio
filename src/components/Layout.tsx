@@ -13,6 +13,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import Intro from '../pages/Intro'
 import Transition from './Transition'
 import { useLocation } from 'react-router-dom'
+import Menu from './Menu'
 
 const Layout = ({
   children,
@@ -91,7 +92,7 @@ const Layout = ({
         <div
           ref={ref}
           className={twMerge([
-            'transition-[width,height] duration-[125] pointer-events-none w-4 h-4 bg-none z-[1000] left-0 top-0 border-[1px] border-white rounded-[50px] absolute -translate-x-1/2 -translate-y-1/2 rotate-0',
+            'transition-[width,height] duration-[125] pointer-events-none w-4 h-4 bg-none z-[3000] left-0 top-0 border-[1px] border-white rounded-[50px] absolute -translate-x-1/2 -translate-y-1/2 rotate-0',
             cursorVariant === 'variant-1'
               ? 'transition-[width,height] duration-[125] w-11 h-11 border-dashed'
               : '',
@@ -99,9 +100,12 @@ const Layout = ({
         />
       )}
 
+      <Menu />
+
       {shouldTransition && <Transition cb={() => setIsFirstAccess(false)} />}
 
       {isFirstAccess ? <Intro /> : <>{children}</>}
+      {/* {children} */}
     </div>
   )
 }
