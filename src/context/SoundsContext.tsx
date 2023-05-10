@@ -1,10 +1,13 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useRef, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import useSound from 'use-sound'
 import { PlayFunction } from 'use-sound/dist/types'
 import { soundAtom } from '../recoil/atoms'
+import { Howl } from 'howler'
+import { CompressedTextureLoader } from 'three'
 
 interface ISounds {
+  backgroundSoundRef: React.MutableRefObject<Howl> | null
   onAnimationExitTransitionSound: PlayFunction | null
   hoverMenuOptionSoundPlay: PlayFunction | null
   clickMenuOptionSoundPlay: PlayFunction | null
@@ -22,6 +25,7 @@ interface ISounds {
 }
 
 const initialValue: ISounds = {
+  backgroundSoundRef: null,
   onAnimationExitTransitionSound: null,
   hoverMenuOptionSoundPlay: null,
   clickMenuOptionSoundPlay: null,
@@ -44,6 +48,20 @@ export const useSoundsContext = () => useContext(SoundsContext)
 
 export function SoundsProvider({ children }: { children: React.ReactNode }) {
   const isSoundOn = useRecoilValue(soundAtom)
+
+  const backgroundSoundRef = useRef(
+    new Howl({
+      src: ['/sounds/background.mp3'],
+      loop: true,
+      onplay: () => {
+        console.log('onplay')
+      },
+      onstop: () => {
+        console.log('onstop')
+      },
+    })
+  )
+
   const [onAnimationExitTransitionSound] = useSound(
     '/sounds/page-transition-exit.mp3',
     {
@@ -51,18 +69,22 @@ export function SoundsProvider({ children }: { children: React.ReactNode }) {
       soundEnabled: isSoundOn,
     }
   )
+
   const [hoverMenuOptionSoundPlay] = useSound('/sounds/hover-menu-option.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
   })
+
   const [clickMenuOptionSoundPlay] = useSound('/sounds/click-menu-option.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
   })
+
   const [openMenuSoundPlay] = useSound('/sounds/open-menu.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
   })
+
   const [hoverCloseMenuIconSoundPlay] = useSound(
     '/sounds/hover-close-menu-icon.wav',
     {
@@ -70,6 +92,7 @@ export function SoundsProvider({ children }: { children: React.ReactNode }) {
       soundEnabled: isSoundOn,
     }
   )
+
   const [hoverOpenMenuIconSoundPlay] = useSound(
     '/sounds/hover-open-menu-icon.wav',
     {
@@ -77,22 +100,27 @@ export function SoundsProvider({ children }: { children: React.ReactNode }) {
       soundEnabled: isSoundOn,
     }
   )
+
   const [soundIconSoundPlay] = useSound('/sounds/hover-sound-icon.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
   })
+
   const [soundOnPlay] = useSound('/sounds/turn-sound-on.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
   })
+
   const [soundOffPlay] = useSound('/sounds/turn-sound-off.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
   })
+
   const [openSocialIconsSoundPlay] = useSound('/sounds/open-social-icons.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
   })
+
   const [hoverSocialIconsIconSoundPlay] = useSound(
     '/sounds/hover-social-icons-icon.wav',
     {
@@ -100,10 +128,12 @@ export function SoundsProvider({ children }: { children: React.ReactNode }) {
       soundEnabled: isSoundOn,
     }
   )
+
   const [hoverSocialIconSoundPlay] = useSound('/sounds/hover-social-icon.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
   })
+
   const [clickSocialIconSoundPlay] = useSound('/sounds/click-social-icon.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
@@ -115,6 +145,7 @@ export function SoundsProvider({ children }: { children: React.ReactNode }) {
   })
 
   const sounds: ISounds = {
+    backgroundSoundRef,
     onAnimationExitTransitionSound,
     hoverMenuOptionSoundPlay,
     clickMenuOptionSoundPlay,

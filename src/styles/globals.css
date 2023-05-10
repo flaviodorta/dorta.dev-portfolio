@@ -45,11 +45,6 @@
   }
 
   .option-number {
-    /* background-image: #ed0c32; */
-    /* background-clip: text; */
-    /* -webkit-text-stroke-color: transparent;
-    -webkit-text-stroke-width: calc(1em / 16);
-    -webkit-background-clip: text; */
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 2px #ed0c32;
   }

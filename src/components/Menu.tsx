@@ -10,7 +10,7 @@ import {
   firstMenuBackgroundVariants,
   secondMenuBackgroundVariants,
 } from '../helpers/variants'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 type OptionProps = React.ComponentPropsWithoutRef<'li'> & {
   path: string
@@ -40,6 +40,14 @@ const Menu = () => {
   const isMenuOpen = useRecoilValue(isMenuOpenAtom)
   const links = ['home', 'about', 'works', 'services', 'contact']
 
+  const shouldTransition = useRecoilValue(shouldTransitionAtom)
+
+  useEffect(() => {
+    console.log('should transition ', shouldTransition)
+
+    return () => console.log('should transition ', shouldTransition)
+  })
+
   return (
     <AnimatePresence>
       {isMenuOpen && (
@@ -49,8 +57,12 @@ const Menu = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            onAnimationStart={() => onAnimationExitTransitionSound!()}
-            onAnimationEnd={() => onAnimationExitTransitionSound!()}
+            onAnimationStart={() => {
+              if (!shouldTransition) onAnimationExitTransitionSound!()
+            }}
+            onAnimationEnd={() => {
+              if (!shouldTransition) onAnimationExitTransitionSound!()
+            }}
             className="z-[1000] h-[100vh] opacity-100 absolute bg-black w-full"
           >
             <div className="h-full w-full absolute">

@@ -181,7 +181,7 @@ export const soundLabelVariants: Variants = {
 
 export const firstMenuBackgroundVariants: Variants = {
   initial: {
-    top: '-100%',
+    top: '-105%',
   },
   animate: {
     top: 0,
@@ -192,7 +192,7 @@ export const firstMenuBackgroundVariants: Variants = {
     },
   },
   exit: {
-    top: '-100%',
+    top: '-105%',
     transition: {
       type: 'spring',
       bounce: 0,
@@ -203,7 +203,7 @@ export const firstMenuBackgroundVariants: Variants = {
 
 export const secondMenuBackgroundVariants: Variants = {
   initial: {
-    top: '-100%',
+    top: '-105%',
   },
   animate: {
     top: 0,
@@ -214,7 +214,7 @@ export const secondMenuBackgroundVariants: Variants = {
     },
   },
   exit: {
-    top: '-100%',
+    top: '-105%',
     transition: {
       type: 'spring',
       bounce: 0,

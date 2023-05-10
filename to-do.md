@@ -7,10 +7,11 @@
 - add cursor pointer to buttons
 - intro
 - transition pages
+- menu backdrop
+- background music
 
 # to do
 
-- menu backdrop
 - about page
 - works page
 - service page

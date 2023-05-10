@@ -53,7 +53,7 @@ const Transition = ({ cb }: { cb?: () => void }) => {
             },
             ease: Power1.easeInOut,
           },
-          '+=.79'
+          '+=.66'
         )
         .call(() => {
           setShouldTransition(false)

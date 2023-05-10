@@ -8,12 +8,15 @@ import {
   firstAccessAtom,
   routerAtom,
   shouldTransitionAtom,
+  soundAtom,
 } from '../recoil/atoms'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import Intro from '../pages/Intro'
 import Transition from './Transition'
-import { useLocation } from 'react-router-dom'
+import { useFetcher, useLocation } from 'react-router-dom'
 import Menu from './Menu'
+import { useSoundsContext } from '../context/SoundsContext'
+import { Howl } from 'howler'
 
 const Layout = ({
   children,
@@ -63,7 +66,6 @@ const Layout = ({
     let timer: NodeJS.Timeout
 
     if (isFirstAccess) {
-      console.log('here')
       timer = setTimeout(() => {
         setShouldTransition(true)
       }, 2500)
@@ -80,6 +82,16 @@ const Layout = ({
     if (location.pathname === '/') setRoute('/home')
     else setRoute(location.pathname)
   }, [location])
+
+  const { backgroundSoundRef } = useSoundsContext()
+
+  const isSoundOn = useRecoilValue(soundAtom)
+
+  useEffect(() => {
+    if (isSoundOn) {
+      backgroundSoundRef!.current.play()
+    } else backgroundSoundRef!.current.stop()
+  }, [isSoundOn])
 
   return (
     <div
@@ -105,7 +117,6 @@ const Layout = ({
       {shouldTransition && <Transition cb={() => setIsFirstAccess(false)} />}
 
       {isFirstAccess ? <Intro /> : <>{children}</>}
-      {/* {children} */}
     </div>
   )
 }
