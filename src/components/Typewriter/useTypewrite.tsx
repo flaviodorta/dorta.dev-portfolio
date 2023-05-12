@@ -43,8 +43,6 @@ export const useTypewriter = ({
     dispatch,
   ] = useReducer(reducer, initialState)
 
-  const firstRun = useRef(true)
-
   const turnTextCharInReactElement = useCallback(
     (text: string, chars: string | string[]) => {
       const textArr: (string | ReactElement)[] = text.split('')
@@ -88,42 +86,42 @@ export const useTypewriter = ({
     []
   )
 
+  if (isInitialDelay && initialDelay) {
+    const wait = (ms: number) => {
+      return new Promise((resolve) => setTimeout(resolve, ms))
+    }
+
+    ;(async function () {
+      await wait(initialDelay)
+      dispatch({ type: 'IS_INITIAL_DELAY' })
+    })()
+  }
+
   const handleTyping = useCallback(() => {
     const indexText = countText % texts.length
     const textArr = turnTextCharInReactElement(texts[indexText], '&')
     const word = textArr[indexWord]
 
-    if (isInitialDelay && initialDelay) {
-      const wait = (ms: number) => {
-        return new Promise((resolve) => setTimeout(resolve, ms))
-      }
+    if (!isDeleting) {
+      dispatch({
+        type: 'TYPING',
+        payload: word,
+        speed: randomIntegerInterval(typeSpeed, 25),
+      })
 
-      ;(async function () {
-        await wait(initialDelay)
-        dispatch({ type: 'IS_INITIAL_DELAY' })
-      })()
+      if (indexWord === textArr.length - 1) {
+        dispatch({
+          type: 'TRANSITION_FINAL',
+          payload: randomIntegerInterval(delaySpeed, 500),
+        })
+      }
     } else {
-      if (!isDeleting) {
-        dispatch({
-          type: 'TYPING',
-          payload: word,
-          speed: randomIntegerInterval(typeSpeed, 25),
-        })
+      dispatch({
+        type: 'DELETING',
+        speed: randomIntegerInterval(deleteSpeed, 30),
+      })
 
-        if (indexWord === textArr.length - 1) {
-          dispatch({
-            type: 'TRANSITION_FINAL',
-            payload: randomIntegerInterval(delaySpeed, 500),
-          })
-        }
-      } else {
-        dispatch({
-          type: 'DELETING',
-          speed: randomIntegerInterval(deleteSpeed, 30),
-        })
-
-        if (isEqual(text, [])) dispatch({ type: 'TRANSITION_START' })
-      }
+      if (isEqual(text, [])) dispatch({ type: 'TRANSITION_START' })
     }
   }, [
     isDeleting,
@@ -141,14 +139,13 @@ export const useTypewriter = ({
 
   useEffect(() => {
     let typing: NodeJS.Timeout
-    if (!firstRun.current) {
+    if (!isInitialDelay) {
       typing = setTimeout(handleTyping, speed)
     }
     return () => {
       clearTimeout(typing)
-      firstRun.current = false
     }
-  }, [handleTyping, speed])
+  }, [handleTyping, speed, isInitialDelay])
 
   return text
 }

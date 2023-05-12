@@ -1,15 +1,18 @@
-import { useRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import {
   firstAccessAtom,
   isMenuOpenAtom,
   routerAtom,
   shouldTransitionAtom,
+  soundAtom,
 } from '../recoil/atoms'
 import Intro from '../pages/Intro'
 import { useIsomorphicLayoutEffect } from 'usehooks-ts'
 import { useRef } from 'react'
 import { Power1, gsap } from 'gsap'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
+import { Howl } from 'howler'
+import { delay } from 'lodash'
 
 const Transition = ({ cb }: { cb?: () => void }) => {
   const ref = useRef<HTMLDivElement>(null!)
@@ -23,15 +26,27 @@ const Transition = ({ cb }: { cb?: () => void }) => {
 
   const navigate = useNavigate()
 
+  const isSoundOn = useRecoilValue(soundAtom)
+
+  const transitionSound = new Howl({
+    src: ['/sounds/page-transition.wav'],
+    mute: !isSoundOn,
+  })
+
+  const isFirstAccess = useRecoilValue(firstAccessAtom)
+
   useIsomorphicLayoutEffect(() => {
     ctx.current = gsap.context(() => {
       tl.current = gsap.timeline()
 
       tl.current
+        .call(() => {
+          if (!isFirstAccess) setTimeout(() => transitionSound.play(), 50)
+        })
         .to('.block', {
           width: '5.1%',
           stagger: {
-            amount: 0.9,
+            amount: 0.7,
           },
           ease: Power1.easeInOut,
         })
@@ -42,22 +57,21 @@ const Transition = ({ cb }: { cb?: () => void }) => {
           navigate(route)
           setIsMenuOpen(false)
           cb && cb()
-          console.log('first part')
+          if (!isFirstAccess) setTimeout(() => transitionSound.play(), 400)
         })
         .to(
           '.block',
           {
             width: '0%',
             stagger: {
-              amount: -0.9,
+              amount: -0.7,
             },
             ease: Power1.easeInOut,
           },
-          '+=.66'
+          '+=.46'
         )
         .call(() => {
           setShouldTransition(false)
-          console.log('second part')
         })
     }, ref)
   }, [])

@@ -53,12 +53,6 @@ export function SoundsProvider({ children }: { children: React.ReactNode }) {
     new Howl({
       src: ['/sounds/background.mp3'],
       loop: true,
-      onplay: () => {
-        console.log('onplay')
-      },
-      onstop: () => {
-        console.log('onstop')
-      },
     })
   )
 

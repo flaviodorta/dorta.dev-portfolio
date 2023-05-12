@@ -17,6 +17,9 @@ import { useFetcher, useLocation } from 'react-router-dom'
 import Menu from './Menu'
 import { useSoundsContext } from '../context/SoundsContext'
 import { Howl } from 'howler'
+import SpaceBackground from './canvas/Space'
+import Navbar from './Navbar'
+import { Footer } from './Footer'
 
 const Layout = ({
   children,
@@ -87,11 +90,22 @@ const Layout = ({
 
   const isSoundOn = useRecoilValue(soundAtom)
 
+  const [soundId, setSoundId] = useState(0)
+
+  console.log(soundId)
+
   useEffect(() => {
     if (isSoundOn) {
-      backgroundSoundRef!.current.play()
-    } else backgroundSoundRef!.current.stop()
+      if (soundId) {
+        backgroundSoundRef!.current.play(soundId)
+      } else {
+        const id = backgroundSoundRef!.current.play()
+        setSoundId(id)
+      }
+    } else backgroundSoundRef!.current.pause(soundId)
   }, [isSoundOn])
+
+  const route = useRecoilValue(routerAtom)
 
   return (
     <div
@@ -116,7 +130,19 @@ const Layout = ({
 
       {shouldTransition && <Transition cb={() => setIsFirstAccess(false)} />}
 
-      {isFirstAccess ? <Intro /> : <>{children}</>}
+      {isFirstAccess ? (
+        <Intro />
+      ) : (
+        <>
+          {route === '/home' && <SpaceBackground />}
+
+          <div className="p-8 absolute flex flex-col justify-between top-0 left-0 w-full h-full">
+            <Navbar />
+            {children}
+            <Footer />
+          </div>
+        </>
+      )}
     </div>
   )
 }

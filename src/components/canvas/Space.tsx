@@ -5,7 +5,7 @@ import {
   Stars,
 } from '@react-three/drei'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Suspense, useRef, useState } from 'react'
+import React, { Suspense, useRef, useState } from 'react'
 import * as THREE from 'three'
 
 const Space = () => {
@@ -47,7 +47,7 @@ const Space = () => {
   )
 }
 
-const SpaceBackground = () => {
+const SpaceBackground = ({ children }: { children?: React.ReactNode }) => {
   return (
     <Canvas
       camera={{
@@ -59,6 +59,7 @@ const SpaceBackground = () => {
     >
       <Suspense fallback={null}>
         <Space />
+        {children && children}
       </Suspense>
 
       <ContactShadows

@@ -5,6 +5,7 @@ import Layout from './components/Layout'
 import { SoundsProvider } from './context/SoundsContext'
 import { RecoilRoot } from 'recoil'
 import Intro from './pages/Intro'
+import About from './pages/About'
 
 export function App() {
   return (
@@ -14,6 +15,7 @@ export function App() {
           <Routes>
             <Route path="/" element={<Intro />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

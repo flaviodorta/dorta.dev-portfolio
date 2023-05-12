@@ -42,12 +42,6 @@ const Menu = () => {
 
   const shouldTransition = useRecoilValue(shouldTransitionAtom)
 
-  useEffect(() => {
-    console.log('should transition ', shouldTransition)
-
-    return () => console.log('should transition ', shouldTransition)
-  })
-
   return (
     <AnimatePresence>
       {isMenuOpen && (
