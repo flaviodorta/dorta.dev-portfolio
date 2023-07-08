@@ -1,6 +1,6 @@
 import { AnimatePresence, motion as m } from 'framer-motion'
 import { useSoundsContext } from '../context/SoundsContext'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import {
   isMenuOpenAtom,
   routerAtom,
@@ -10,26 +10,63 @@ import {
   firstMenuBackgroundVariants,
   secondMenuBackgroundVariants,
 } from '../helpers/variants'
-import React, { useEffect } from 'react'
+import React, { useRef } from 'react'
+import { motion } from 'framer-motion'
+import { useHover } from 'usehooks-ts'
 
 type OptionProps = React.ComponentPropsWithoutRef<'li'> & {
   path: string
+  // text: string;
 }
 
 const Option = (props: OptionProps) => {
   const setRoute = useSetRecoilState(routerAtom)
-  const setShouldTransition = useSetRecoilState(shouldTransitionAtom)
+  const [shouldTransition, setShouldTransition] =
+    useRecoilState(shouldTransitionAtom)
+  const ref = useRef<HTMLDivElement>(null!)
+  const isHovered = useHover(ref)
 
   return (
-    <div className="group relative w-fit h-fit">
+    <div className="group  overflow-hidden relative w-fit h-fit">
       <div
+        ref={ref}
         onClick={() => {
           setShouldTransition(true)
           setRoute(props.path)
         }}
-        className="cursor-pointer p-2 transition-colors duration-150 ease-out group-hover:bg-primary font-anton text-7xl  uppercase"
+        className="flex h-fit cursor-pointer p-2  duration-[400ms] ease-[var(--ease)] group-hover:bg-primary font-anton text-7xl  uppercase"
       >
-        {props.children}
+        <div className="flex">
+          {props.path.split('').map((l, i) => (
+            <motion.span
+              animate={
+                isHovered
+                  ? { y: -80, rotateX: 180, opacity: 0.1 }
+                  : { y: 0, rotateX: 0, opacity: 1 }
+              }
+              transition={{ duration: 0.4, delay: 0.02 * i }}
+              className="w-fit flex"
+            >
+              {l}
+            </motion.span>
+          ))}
+        </div>
+
+        <div className="flex absolute">
+          {props.path.split('').map((l, i) => (
+            <motion.span
+              animate={
+                isHovered
+                  ? { y: 0, rotateX: 0, opacity: 1 }
+                  : { y: 80, rotateX: -180, opacity: 0.1 }
+              }
+              transition={{ duration: 0.4, delay: 0.02 * i }}
+              className="w-fit flex"
+            >
+              {l}
+            </motion.span>
+          ))}
+        </div>
       </div>
     </div>
   )
@@ -60,7 +97,7 @@ const Menu = () => {
             className="fixed z-[1000] h-[100vh] opacity-100  bg-black w-full"
           >
             <div className="h-full w-full fixed">
-              <ul className="h-full w-full flex flex-col gap-0 items-center justify-center">
+              <ul className="h-full w-full flex flex-col items-center justify-center">
                 {links.map((link, idx) => (
                   <Option key={idx} path={link}>
                     {link}
@@ -69,6 +106,7 @@ const Menu = () => {
               </ul>
             </div>
           </m.div>
+
           <m.div
             variants={secondMenuBackgroundVariants}
             initial="initial"

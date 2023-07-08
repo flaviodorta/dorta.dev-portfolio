@@ -22,7 +22,6 @@ const Intro = ({ cb }: { cb?: () => void }) => {
 
     return () => {
       ctx.revert()
-      // cb && cb()
     }
   }, [])
 

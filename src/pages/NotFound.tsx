@@ -1,5 +1,13 @@
+import { twMerge } from 'tailwind-merge'
+import MagneticDiv from '../components/MagneticDiv'
+import { RxTriangleUp } from 'react-icons/rx'
+
 const NotFound = () => {
-  return <h1>Not found</h1>
+  return (
+    <div>
+      <h1>Not found</h1>
+    </div>
+  )
 }
 
 export default NotFound

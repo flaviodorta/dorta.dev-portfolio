@@ -118,6 +118,12 @@ const Layout = ({
 
   const route = useRecoilValue(routerAtom)
 
+  const [x, y] = useState(0)
+
+  console.log(x)
+
+  useEffect(() => y((s) => s + 1), [route])
+
   return (
     <div
       ref={divRef}

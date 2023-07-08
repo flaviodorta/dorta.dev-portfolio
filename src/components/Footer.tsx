@@ -76,22 +76,14 @@ export const Footer = () => {
 
   const onMouseLeaveOpenSocialsIconsIcon = () => setCursorVariant('default')
 
-  // const footerIconsVariants: Variants = {
-  //   initial: {
-  //     opacity: 0,
-  //   },
-  //   animate: {
-  //     opacity: 1,
-  //     transition: {
-  //       delay: 1.6,
-  //       duration: 0.8,
-  //     },
-  //   },
-  // }
-
   return (
     <>
-      <div className="fixed left-[20px] bottom-[20px] md:left-[30px] md:bottom-[40px] z-[4000]">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 3.2, duration: 1 }}
+        className="fixed left-[20px] bottom-[20px] md:left-[30px] md:bottom-[40px] z-[4000]"
+      >
         {/* sound icon */}
         <div
           ref={soundIconRef}
@@ -115,8 +107,14 @@ export const Footer = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
-      <div className="fixed right-[20px] bottom-[20px] md:right-[40px] md:bottom-[30px] z-[4000]">
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 3, duration: 1 }}
+        className="fixed right-[20px] bottom-[20px] md:right-[40px] md:bottom-[30px] z-[4000]"
+      >
         <div className="z-[2000] w-fit h-[80px] flex items-end justify-end">
           <div className="flex flex-col gap-4 justify-end items-center">
             <AnimatePresence>
@@ -188,7 +186,7 @@ export const Footer = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   )
 }

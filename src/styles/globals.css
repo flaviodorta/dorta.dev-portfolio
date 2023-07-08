@@ -12,11 +12,13 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --navbar-height: 80px;
-}
-
 @layer base {
+  :root {
+    --navbar-height: 80px;
+    --ease-out: cubic-bezier(0.165, 0.84, 0.44, 1);
+    --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
   *,
   *::before,
   *::after {
@@ -46,6 +48,19 @@
 }
 
 @layer components {
+  .see-works {
+    background-image: linear-gradient(#ed0c32 0 0);
+    background-size: 200% 0.08em;
+    background-position: 200% 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s, background-position 0.3s 0.3s;
+  }
+  .see-works:hover {
+    transition: background-size 0.3s 0.3s, background-position 0.3s;
+    background-size: 200% 100%;
+    background-position: 100% 100%;
+  }
+
   .flex-center {
     @apply flex items-center justify-center;
   }
