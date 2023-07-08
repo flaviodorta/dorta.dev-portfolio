@@ -8,13 +8,18 @@ import {
 } from '../recoil/atoms'
 import Intro from '../pages/Intro'
 import { useIsomorphicLayoutEffect } from 'usehooks-ts'
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import { Power1, gsap } from 'gsap'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 import { Howl } from 'howler'
 import { delay } from 'lodash'
 
-const Transition = ({ cb }: { cb?: () => void }) => {
+interface TransitionProps {
+  onMount?: () => void
+  onUnmount?: () => void
+}
+
+const Transition: React.FC<TransitionProps> = ({ onMount, onUnmount }) => {
   const ref = useRef<HTMLDivElement>(null!)
   const tl = useRef<GSAPTimeline>()
   const ctx = useRef<ReturnType<typeof gsap.context>>()
@@ -56,7 +61,7 @@ const Transition = ({ cb }: { cb?: () => void }) => {
         .call(() => {
           navigate(route)
           setIsMenuOpen(false)
-          cb && cb()
+          onMount && onMount()
           if (!isFirstAccess) setTimeout(() => transitionSound.play(), 400)
         })
         .to(
@@ -74,12 +79,17 @@ const Transition = ({ cb }: { cb?: () => void }) => {
           setShouldTransition(false)
         })
     }, ref)
+
+    return () => {
+      ctx.current?.revert()
+      onUnmount && onUnmount()
+    }
   }, [])
 
   return (
     <div
       ref={ref}
-      className="fixed w-screen h-screen z-[3000] -ml-[var(--layout-padding-xsm)] lg:-ml-[var(--layout-padding-lg)] -mt-[var(--layout-padding-xsm)] lg:-mt-[var(--layout-padding-lg)]"
+      className="fixed w-screen h-screen z-[7000] -ml-[var(--layout-padding-xsm)] lg:-ml-[var(--layout-padding-lg)] -mt-[var(--layout-padding-xsm)] lg:-mt-[var(--layout-padding-lg)]"
     >
       <div className="block block-1" />
       <div className="block block-2" />

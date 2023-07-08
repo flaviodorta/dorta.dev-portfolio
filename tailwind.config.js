@@ -10,6 +10,7 @@ export default {
       fontFamily: {
         anton: ['Anton', 'sans-serif'],
         'share-tech': ['Share Tech', 'sans-serif'],
+        'neue-grotesk': ['Neue Grotesk', 'sans-serif'],
       },
       animation: {
         'sound-bar': 'sound-bar 0.60s linear infinite',

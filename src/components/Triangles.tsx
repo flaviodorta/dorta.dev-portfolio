@@ -15,8 +15,10 @@ import {
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import { KernelSize } from 'postprocessing'
 import { Suspense, useMemo, useRef, useState } from 'react'
+import { isMobile } from 'react-device-detect'
 import * as THREE from 'three'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
+import { useEventListener, useMediaQuery } from 'usehooks-ts'
 
 type TriangleProps = MeshProps & { color: string }
 
@@ -90,10 +92,22 @@ const Rig = ({ children }: { children: React.ReactNode }) => {
 // }
 
 export const Triangles = () => {
+  const mobile = useMediaQuery('(max-width: 767px)')
+  const desktop = useMediaQuery('(min-width: 768px)')
+
+  const scale = useMemo(() => {
+    if (mobile) return 0.01
+    if (desktop) return 0.012
+  }, [mobile, desktop])
+
+  // const [width, setWidth] = useState(window.)
+
+  useEventListener('resize', () => {})
+
   return (
-    <div className="w-full h-full absolute left-0 top-0">
-      <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 15] }}>
-        <color attach="background" args={['#202020']} />
+    <div className="w-screen h-[400px] md:h-[700px] overflow-hidden  left-0 top-0">
+      <Canvas dpr={[1, 1.5]} camera={{ position: [isMobile ? 2 : 0, 0, 15] }}>
+        <color attach="background" args={['#101010']} />
         <ambientLight />
         <OrbitControls
           enableZoom={false}
@@ -104,25 +118,26 @@ export const Triangles = () => {
           <Rig>
             <Triangle
               color="#ed0c32"
-              scale={0.009}
+              scale={scale}
+              rotation={[0, 0, Math.PI / 3]}
+              position={[0, -1, 0]}
+            />
+            <Triangle
+              color="#ed0c32"
+              scale={scale}
+              position={[2, -1, -2]}
               rotation={[0, 0, Math.PI / 3]}
             />
             <Triangle
               color="#ed0c32"
-              scale={0.009}
-              position={[2, 0, -2]}
+              scale={scale}
+              position={[-2, -1, -2]}
               rotation={[0, 0, Math.PI / 3]}
             />
             <Triangle
               color="#ed0c32"
-              scale={0.009}
-              position={[-2, 0, -2]}
-              rotation={[0, 0, Math.PI / 3]}
-            />
-            <Triangle
-              color="#ed0c32"
-              scale={0.009}
-              position={[0, 2, -10]}
+              scale={scale}
+              position={[0, 0, -10]}
               rotation={[0, 0, Math.PI / 3]}
             />
           </Rig>

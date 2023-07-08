@@ -142,6 +142,7 @@ export const useTypewriter = ({
     if (!isInitialDelay) {
       typing = setTimeout(handleTyping, speed)
     }
+    
     return () => {
       clearTimeout(typing)
     }

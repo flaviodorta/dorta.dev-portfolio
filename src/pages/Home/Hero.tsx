@@ -13,7 +13,7 @@ const Hero = () => {
   const setCursorVariant = useSetRecoilState(cursorVariantAtom)
 
   return (
-    <main className="mx-auto px-2 font-anton md:-translate-y-16 md:-translate-x-16  2xl:-translate-y-24 2xl:-translate-x-24">
+    <main className="overflow-hidden mx-auto px-[1rem] font-anton md:-translate-y-16 md:-translate-x-16  2xl:-translate-y-24 2xl:-translate-x-24">
       <h1
         className="text-6xl md:text-7xl mb-4"
         onMouseEnter={() => setCursorVariant('variant-1')}
@@ -23,13 +23,13 @@ const Hero = () => {
         <span className="text-primary">.</span>
       </h1>
 
-      <p
-        className="font-montserrat absolute md:text-2xl"
+      <Typewriter
+        texts={strings}
+        initialDelay={4000}
         onMouseEnter={() => setCursorVariant('variant-1')}
         onMouseLeave={() => setCursorVariant('default')}
-      >
-        <Typewriter texts={strings} initialDelay={4000} />
-      </p>
+        className="font-share-tech w-full z-10 text-white h-fit md:text-2xl"
+      />
     </main>
   )
 }

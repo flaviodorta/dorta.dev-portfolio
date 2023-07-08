@@ -37,7 +37,7 @@ const Space = () => {
       <Stars
         radius={50}
         depth={50}
-        count={60000}
+        count={10000}
         factor={4}
         saturation={10}
         fade
@@ -62,7 +62,7 @@ const SpaceBackground = ({ children }: { children?: React.ReactNode }) => {
         {children && children}
       </Suspense>
 
-      <ContactShadows
+      {/* <ContactShadows
         renderOrder={2}
         color="block"
         resolution={1024}
@@ -72,7 +72,7 @@ const SpaceBackground = ({ children }: { children?: React.ReactNode }) => {
         far={0.5}
       />
 
-      <BakeShadows />
+      <BakeShadows /> */}
 
       <CameraShake
         yawFrequency={0.1}

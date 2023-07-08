@@ -57,9 +57,9 @@ const Menu = () => {
             onAnimationEnd={() => {
               if (!shouldTransition) onAnimationExitTransitionSound!()
             }}
-            className="z-[1000] h-[100vh] opacity-100 absolute bg-black w-full"
+            className="fixed z-[1000] h-[100vh] opacity-100  bg-black w-full"
           >
-            <div className="h-full w-full absolute">
+            <div className="h-full w-full fixed">
               <ul className="h-full w-full flex flex-col gap-0 items-center justify-center">
                 {links.map((link, idx) => (
                   <Option key={idx} path={link}>
@@ -74,7 +74,7 @@ const Menu = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="z-[999] h-[100vh] bg-primary absolute w-full left-0"
+            className="z-[999] h-[100vh] bg-primary fixed w-full left-0"
           />
         </>
       )}

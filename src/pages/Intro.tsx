@@ -27,7 +27,7 @@ const Intro = ({ cb }: { cb?: () => void }) => {
   }, [])
 
   return (
-    <div ref={ref} className="w-full h-full flex-center">
+    <div ref={ref} className="overflow-hidden w-full h-full flex-center">
       <Logo className="logo -translate-y-16 opacity-0" />
     </div>
   )

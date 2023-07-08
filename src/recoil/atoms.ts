@@ -30,3 +30,8 @@ export const isMenuOpenAtom = atom({
   key: 'is-menu-open',
   default: false,
 })
+
+export const transitionFinishedAtom = atom({
+  key: 'transition-finished',
+  default: false,
+})

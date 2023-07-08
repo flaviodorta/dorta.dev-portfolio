@@ -1,9 +1,14 @@
 import { TypewriterProps, useTypewriter } from './useTypewrite'
 import { Cursor } from './Cursor'
 
-interface ComponentProps extends TypewriterProps {
-  cursor?: boolean
+type Props = React.ComponentPropsWithoutRef<'div'> & {
+  texts?: string[]
+  typeSpeed?: number
+  deleteSpeed?: number
+  delaySpeed?: number
+  initialDelay?: number | null
   cursorStyle?: string
+  cursor?: boolean
 }
 
 export const Typewriter = ({
@@ -14,7 +19,8 @@ export const Typewriter = ({
   initialDelay = null,
   cursorStyle = '|',
   cursor = true,
-}: ComponentProps) => {
+  className,
+}: Props) => {
   const text = useTypewriter({
     texts,
     typeSpeed,
@@ -24,9 +30,9 @@ export const Typewriter = ({
   })
 
   return (
-    <>
-      <span className="font-share-tech">{text}</span>
+    <div className={className}>
+      <span>{text}</span>
       {cursor && <Cursor cursorStyle={cursorStyle} />}
-    </>
+    </div>
   )
 }
