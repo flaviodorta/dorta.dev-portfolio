@@ -37,7 +37,7 @@ const Space = () => {
       <Stars
         radius={50}
         depth={50}
-        count={10000}
+        count={5000}
         factor={4}
         saturation={10}
         fade

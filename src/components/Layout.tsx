@@ -1,11 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, {
+  lazy,
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { isDesktop } from 'react-device-detect'
 import gsap from 'gsap'
-import { useEventListener } from 'usehooks-ts'
+import { useEventListener, useTimeout } from 'usehooks-ts'
 import { twMerge } from 'tailwind-merge'
 import {
   cursorVariantAtom,
   firstAccessAtom,
+  isLoadingAtom,
   routerAtom,
   shouldTransitionAtom,
   soundAtom,
@@ -18,9 +26,12 @@ import { useFetcher, useLocation, useRoutes } from 'react-router-dom'
 import Menu from './Menu'
 import { useSoundsContext } from '../context/SoundsContext'
 import { Howl } from 'howler'
-import SpaceBackground from './canvas/Space'
+// import SpaceBackground from './canvas/Space'
 import Navbar from './Navbar'
 import { Footer } from './Footer'
+import { motion } from 'framer-motion'
+
+const SpaceBackgroundLazy = React.lazy(() => import('./canvas/Space'))
 
 const Layout = ({
   children,
@@ -94,6 +105,9 @@ const Layout = ({
 
   const location = useLocation()
 
+  const [k, l] = useState(false)
+  useTimeout(() => l(true), 7500)
+
   useEffect(() => {
     if (location.pathname === '/') setRoute('/home')
     else setRoute(location.pathname)
@@ -124,6 +138,13 @@ const Layout = ({
 
   useEffect(() => y((s) => s + 1), [route])
 
+  const SpaceBackground = useMemo(
+    () => lazy(() => import('./canvas/Space')),
+    []
+  )
+
+  const isLoading = useRecoilValue(isLoadingAtom)
+
   return (
     <div
       ref={divRef}
@@ -146,7 +167,7 @@ const Layout = ({
 
       <Menu />
 
-      {shouldTransition && (
+      {shouldTransition && isLoading && (
         <Transition
           onMount={() => setIsFirstAccess(false)}
           onUnmount={() => setTransitionFinished(true)}
@@ -157,7 +178,17 @@ const Layout = ({
         <Intro />
       ) : (
         <>
-          {route === '/home' && <SpaceBackground />}
+          {route === '/home' && k && (
+            <Suspense fallback={null}>
+              <motion.div
+                className="h-full"
+                animate={k ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 3 }}
+              >
+                <SpaceBackground />
+              </motion.div>
+            </Suspense>
+          )}
 
           <div
             ref={r}

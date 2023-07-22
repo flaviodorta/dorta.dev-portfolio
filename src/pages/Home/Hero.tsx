@@ -37,7 +37,7 @@ const Hero = () => {
 
   const [x, y] = React.useState(false)
 
-  useTimeout(() => y(true), 1000)
+  useTimeout(() => y(true), 2000)
 
   return (
     <main className="relative overflow-hidden mx-auto px-[1rem] font-anton md:-translate-y-16 md:-translate-x-16  2xl:-translate-y-24 2xl:-translate-x-24">

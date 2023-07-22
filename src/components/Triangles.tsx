@@ -29,9 +29,11 @@ const Triangle = ({ color, ...props }: TriangleProps) => {
     (_) =>
       (ref.current.position.y = -1.75 + Math.sin(_.clock.elapsedTime + r) / 10)
   )
+
   const {
     paths: [path],
   } = useLoader(SVGLoader, '/triangle.svg')
+
   const geom = useMemo(
     () =>
       SVGLoader.pointsToStroke(
@@ -54,6 +56,7 @@ const Rig = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef<THREE.Group>(null!)
   const vec = new THREE.Vector3()
   const { camera, mouse } = useThree()
+  
   useFrame(() => {
     camera.position.lerp(vec.set(mouse.x * 2, 0, 3.5), 0.05)
     ref.current.position.lerp(vec.set(mouse.x * 1, mouse.y * 0.1, 0), 0.1)
@@ -66,30 +69,6 @@ const Rig = ({ children }: { children: React.ReactNode }) => {
 
   return <group ref={ref}>{children}</group>
 }
-
-// const Ground = (props: ReflectorProps) => {
-//   const [floor, normal] = useTexture([
-//     '/SurfaceImperfections003_1K_var1.jpg',
-//     '/SurfaceImperfections003_1K_Normal.jpg',
-//   ])
-
-//   const normalScale = new THREE.Vector2(2, 2)
-
-//   return (
-//     <Reflector resolution={1024} args={[8, 8]} {...props}>
-//       {(Material, props) => (
-//         <Material
-//           color="#f0f0f0"
-//           metalness={0}
-//           roughnessMap={floor}
-//           normalMap={normal}
-//           normalScale={normalScale}
-//           {...props}
-//         />
-//       )}
-//     </Reflector>
-//   )
-// }
 
 export const Triangles = () => {
   const mobile = useMediaQuery('(max-width: 767px)')

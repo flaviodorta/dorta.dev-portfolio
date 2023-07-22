@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useRef, useState } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import useSound from 'use-sound'
 import { PlayFunction } from 'use-sound/dist/types'
-import { soundAtom } from '../recoil/atoms'
+import { isLoadingAtom, soundAtom } from '../recoil/atoms'
 import { Howl } from 'howler'
 import { CompressedTextureLoader } from 'three'
 
@@ -48,11 +48,16 @@ export const useSoundsContext = () => useContext(SoundsContext)
 
 export function SoundsProvider({ children }: { children: React.ReactNode }) {
   const isSoundOn = useRecoilValue(soundAtom)
+  const s = useSetRecoilState(isLoadingAtom)
 
   const backgroundSoundRef = useRef(
     new Howl({
       src: ['/sounds/background.mp3'],
       loop: true,
+      preload: 'metadata',
+      onload: () => {
+        s(true)
+      },
     })
   )
 
@@ -61,22 +66,26 @@ export function SoundsProvider({ children }: { children: React.ReactNode }) {
     {
       volume: 0.1,
       soundEnabled: isSoundOn,
+      onload: () => console.log('load 2'),
     }
   )
 
   const [hoverMenuOptionSoundPlay] = useSound('/sounds/hover-menu-option.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
+    onload: () => console.log('load 3'),
   })
 
   const [clickMenuOptionSoundPlay] = useSound('/sounds/click-menu-option.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
+    onload: () => console.log('load 4'),
   })
 
   const [openMenuSoundPlay] = useSound('/sounds/open-menu.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
+    onload: () => console.log('load 5'),
   })
 
   const [hoverCloseMenuIconSoundPlay] = useSound(
@@ -84,6 +93,7 @@ export function SoundsProvider({ children }: { children: React.ReactNode }) {
     {
       volume: 0.1,
       soundEnabled: isSoundOn,
+      onload: () => console.log('load 6'),
     }
   )
 
@@ -92,27 +102,32 @@ export function SoundsProvider({ children }: { children: React.ReactNode }) {
     {
       volume: 0.1,
       soundEnabled: isSoundOn,
+      onload: () => console.log('load 7'),
     }
   )
 
   const [soundIconSoundPlay] = useSound('/sounds/hover-sound-icon.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
+    onload: () => console.log('load 8'),
   })
 
   const [soundOnPlay] = useSound('/sounds/turn-sound-on.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
+    onload: () => console.log('load 9'),
   })
 
   const [soundOffPlay] = useSound('/sounds/turn-sound-off.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
+    onload: () => console.log('load 10'),
   })
 
   const [openSocialIconsSoundPlay] = useSound('/sounds/open-social-icons.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
+    onload: () => console.log('load 11'),
   })
 
   const [hoverSocialIconsIconSoundPlay] = useSound(
@@ -120,22 +135,26 @@ export function SoundsProvider({ children }: { children: React.ReactNode }) {
     {
       volume: 0.1,
       soundEnabled: isSoundOn,
+      onload: () => console.log('load 12'),
     }
   )
 
   const [hoverSocialIconSoundPlay] = useSound('/sounds/hover-social-icon.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
+    onload: () => console.log('load 13'),
   })
 
   const [clickSocialIconSoundPlay] = useSound('/sounds/click-social-icon.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
+    onload: () => console.log('load 14'),
   })
 
   const [backgroundSoundPlay] = useSound('/sounds/click-social-icon.wav', {
     volume: 0.1,
     soundEnabled: isSoundOn,
+    onload: () => console.log('load 15'),
   })
 
   const sounds: ISounds = {

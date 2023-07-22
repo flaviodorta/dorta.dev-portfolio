@@ -9,25 +9,25 @@ const Intro = ({ cb }: { cb?: () => void }) => {
   const tl = useRef<GSAPTimeline>()
   const ref = useRef<HTMLDivElement>(null!)
 
-  useIsomorphicLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      tl.current = gsap.timeline()
+  // useIsomorphicLayoutEffect(() => {
+  //   const ctx = gsap.context(() => {
+  //     tl.current = gsap.timeline()
 
-      tl.current.to('.logo', {
-        opacity: 1,
-        duration: 1,
-        delay: 0.5,
-      })
-    }, ref)
+  //     tl.current.to('.logo', {
+  //       opacity: 1,
+  //       duration: 1,
+  //       delay: 0.5,
+  //     })
+  //   }, ref)
 
-    return () => {
-      ctx.revert()
-    }
-  }, [])
+  //   return () => {
+  //     ctx.revert()
+  //   }
+  // }, [])
 
   return (
     <div ref={ref} className="overflow-hidden w-full h-full flex-center">
-      <Logo className="logo -translate-y-16 opacity-0" />
+      <Logo className="-translate-y-16 opacity-1" />
     </div>
   )
 }

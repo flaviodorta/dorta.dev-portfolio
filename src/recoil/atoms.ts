@@ -35,3 +35,8 @@ export const transitionFinishedAtom = atom({
   key: 'transition-finished',
   default: false,
 })
+
+export const isLoadingAtom = atom({
+  key: 'is-loading',
+  default: false,
+})
