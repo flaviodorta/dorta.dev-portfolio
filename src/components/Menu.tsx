@@ -13,6 +13,7 @@ import {
 import React, { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useHover } from 'usehooks-ts'
+import { RouletteText } from './RoulleteText'
 
 type OptionProps = React.ComponentPropsWithoutRef<'li'> & {
   path: string
@@ -29,9 +30,13 @@ const Option = (props: OptionProps) => {
 
   return (
     <div className="relative group">
-      <span className="absolute group-hover:text-primary transition-colors text-[1.4rem] font-libertad flex-center w-6 h-6 top-2.5 -left-8">
-        0{props.idx + 1}
-      </span>
+      <RouletteText
+        text={`0${props.idx + 1}`}
+        className="absolute group-hover:text-primary text-[1.4rem] font-libertad flex-center w-6 h-6 top-2.5 -left-8"
+        type="numbers"
+        shouldRoulette={isHovered}
+        speed={6}
+      />
       <div className="group overflow-hidden relative w-fit h-fit">
         <div
           ref={ref}

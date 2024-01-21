@@ -1,22 +1,32 @@
 import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-export const RouletteText = ({
-  text,
-  className,
-  isParentHovered,
-}: {
+export const RouletteText = (props: {
   text: string
   className: string
-  isParentHovered?: boolean
+  shouldRoulette?: boolean
+  type: 'alphabet' | 'numbers'
+  speed: number
 }) => {
-  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
+  const { text, className, type, speed } = props
+
+  const baseTextRandomized = {
+    alphabet: 'abcdefghijklmnopqrstuvwxyz'.split('')[
+      Math.floor(Math.random() * 26)
+    ],
+    numbers: '0123456789'.split('')[Math.floor(Math.random() * 10)],
+  }
+
+  console.log(text)
+
   const textArr = [...text]
   const textLength = textArr.length
   const maxRoulettes = 10
 
   const [roulettedTextArr, setRoulettedTextArr] = useState(textArr)
-  const [shouldRoulette, setShouldRoulette] = useState(isParentHovered || false)
+  const [shouldRoulette, setShouldRoulette] = useState(
+    props.shouldRoulette || false
+  )
   const [idx, setIdx] = useState(0)
   const [count, setCount] = useState(0)
 
@@ -25,11 +35,11 @@ export const RouletteText = ({
     const newRoulettedTextArr = [...roulettedTextArr]
     const cd =
       count < maxRoulettes
-        ? 5 + count * ((2.5 * count) / maxRoulettes)
-        : 10 + count * 1.5
+        ? speed / 2 + count * ((2.5 * count) / maxRoulettes)
+        : speed + count * 1.5
 
     if (shouldRoulette && count < maxRoulettes) {
-      newRoulettedTextArr[idx] = alphabet[Math.floor(Math.random() * 26)]
+      newRoulettedTextArr[idx] = baseTextRandomized[type]
 
       timer = setTimeout(() => {
         setRoulettedTextArr(newRoulettedTextArr)
@@ -57,18 +67,16 @@ export const RouletteText = ({
     }
 
     return () => clearTimeout(timer)
-  }, [shouldRoulette, roulettedTextArr, count, isParentHovered])
+  }, [shouldRoulette, roulettedTextArr, count, props.shouldRoulette])
 
   useEffect(() => {
-    if (isParentHovered) setShouldRoulette(isParentHovered)
-  }, [isParentHovered])
+    if (props.shouldRoulette) setShouldRoulette(props.shouldRoulette)
+  }, [props.shouldRoulette])
 
   return (
     <span
       onMouseEnter={() => {
         if (!shouldRoulette) setShouldRoulette(true)
-
-        console.log('count ', count)
       }}
       className={twMerge(['flex', className])}
     >

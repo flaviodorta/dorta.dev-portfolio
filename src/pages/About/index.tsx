@@ -66,13 +66,14 @@ const About = () => {
     }
   }, [])
 
+  // lazy loading
   const Triangles = useMemo(
     () => lazy(() => import('../../components/Triangles')),
     []
   )
 
   return (
-    <div className="w-full h-full relative overflow-auto">
+    <div className="w-full h-full relative overflow-hidden">
       <Suspense fallback={null}>
         {transitionFinished && (
           <motion.div

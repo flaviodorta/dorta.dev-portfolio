@@ -80,7 +80,11 @@ export const Footer = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
     <>
       <motion.div
         initial={false}
-        animate={shouldAnimate ? { opacity: 0 } : { opacity: 1 }}
+        animate={
+          shouldAnimate
+            ? { opacity: 0, display: 'none' }
+            : { opacity: 1, display: 'block' }
+        }
         transition={{ delay: 2, duration: 1 }}
         className="fixed left-[20px] bottom-[20px] md:left-[30px] md:bottom-[40px] z-[4000]"
       >
@@ -111,7 +115,11 @@ export const Footer = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
 
       <motion.div
         initial={false}
-        animate={shouldAnimate ? { opacity: 0 } : { opacity: 1 }}
+        animate={
+          shouldAnimate
+            ? { opacity: 0, display: 'none' }
+            : { opacity: 1, display: 'block' }
+        }
         transition={{ delay: 2.5, duration: 1 }}
         className="fixed right-[20px] bottom-[20px] md:right-[40px] md:bottom-[30px] z-[4000]"
       >

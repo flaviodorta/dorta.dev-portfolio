@@ -47,7 +47,7 @@ export const WorkCard = ({
             display: 'block',
           }
         }
-        transition={{ delay: 0.9, duration: 0.8 }}
+        transition={{ delay: 0.7, duration: 0.8 }}
         className="h-[20rem] w-full relative"
       >
         <div className="h-[90%] w-full">
@@ -74,7 +74,9 @@ export const WorkCard = ({
               <RouletteText
                 text="link"
                 className="group-hover:text-shadow text-[10px] lg:text-xs transition-all duration-200"
-                isParentHovered={shouldRoulette}
+                shouldRoulette={shouldRoulette}
+                type="alphabet"
+                speed={1}
               />
 
               <span className="mx-1 group-hover:translate-x-1.5 transition-all duration-200 ease-[var(--ease)]">
