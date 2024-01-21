@@ -36,6 +36,7 @@ const Transition: React.FC<TransitionProps> = ({ onMount, onUnmount }) => {
   const transitionSound = new Howl({
     src: ['/sounds/page-transition.wav'],
     mute: !isSoundOn,
+    preload: 'metadata'
   })
 
   const isFirstAccess = useRecoilValue(firstAccessAtom)

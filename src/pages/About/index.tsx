@@ -1,7 +1,7 @@
 import Triangles from '../../components/Triangles'
 import { ScrollTrigger } from 'gsap/all'
 import gsap, { Power1 } from 'gsap'
-import { Suspense, useEffect, useRef } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { CgArrowLongRight } from 'react-icons/cg'
 import {
@@ -65,6 +65,11 @@ const About = () => {
       setTransitionFinished(false)
     }
   }, [])
+
+  const Triangles = useMemo(
+    () => lazy(() => import('../../components/Triangles')),
+    []
+  )
 
   return (
     <div className="w-full h-full relative overflow-auto">

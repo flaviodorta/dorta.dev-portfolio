@@ -1,11 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, {
+  lazy,
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { isDesktop } from 'react-device-detect'
 import gsap from 'gsap'
-import { useEventListener } from 'usehooks-ts'
+import { useEventListener, useTimeout } from 'usehooks-ts'
 import { twMerge } from 'tailwind-merge'
 import {
   cursorVariantAtom,
   firstAccessAtom,
+  isLoadingAtom,
   routerAtom,
   shouldTransitionAtom,
   soundAtom,
@@ -18,6 +26,7 @@ import Menu from './Menu'
 import { useSoundsContext } from '../context/SoundsContext'
 import Navbar from './Navbar'
 import { Footer } from './Footer'
+import { motion } from 'framer-motion'
 
 const Layout = ({
   children,

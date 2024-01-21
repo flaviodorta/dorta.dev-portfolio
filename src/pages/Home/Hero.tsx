@@ -9,7 +9,6 @@ import { Variants, motion } from 'framer-motion'
 import { useTimeout } from 'usehooks-ts'
 import React, { useState } from 'react'
 import { StarsCanvas } from '../../components/StarCanvas'
-import Intro from '../Intro'
 
 const container: Variants = {
   hidden: { transition: { delay: 3 } },
@@ -43,7 +42,7 @@ const Hero = () => {
 
   const [x, y] = React.useState(false)
 
-  useTimeout(() => y(true), 1000)
+  useTimeout(() => y(true), 2000)
 
   const isFirstAccess = useRecoilValue(firstAccessAtom)
 
