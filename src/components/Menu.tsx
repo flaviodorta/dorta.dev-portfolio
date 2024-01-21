@@ -37,7 +37,7 @@ const Option = (props: OptionProps) => {
           ref={ref}
           onClick={() => {
             setShouldTransition(true)
-            setRoute(props.path)
+            setRoute(props.path === 'home' ? '/' : props.path)
           }}
           className="flex h-fit cursor-pointer p-2  duration-[400ms] ease-[var(--ease)] group-hover:bg-primary font-anton text-7xl  uppercase"
         >

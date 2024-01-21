@@ -4,12 +4,13 @@ import NotFound from './pages/NotFound'
 import Layout from './components/Layout'
 import { SoundsProvider } from './context/SoundsContext'
 import { RecoilRoot } from 'recoil'
-import Intro from './pages/Intro'
 import About from './pages/About'
 import { Works } from './pages/Works'
+import { ReactLenis } from '@studio-freight/react-lenis'
 
 export function App() {
   return (
+    // <ReactLenis root>
     <RecoilRoot>
       <SoundsProvider>
         <Layout>
@@ -22,6 +23,7 @@ export function App() {
         </Layout>
       </SoundsProvider>
     </RecoilRoot>
+    // </ReactLenis>
   )
 }
 

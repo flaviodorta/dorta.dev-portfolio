@@ -13,6 +13,7 @@
     "@react-three/drei": "^9.66.0",
     "@react-three/fiber": "^8.12.2",
     "@react-three/postprocessing": "^2.8.0",
+    "@studio-freight/react-lenis": "^0.0.43",
     "framer-motion": "^10.12.8",
     "gsap": "^3.11.5",
     "howler": "^2.2.3",

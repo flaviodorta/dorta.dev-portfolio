@@ -57,9 +57,17 @@
   ::-webkit-scrollbar-track {
     background-color: #101010;
   }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @layer components {
+  .text-shadow {
+    text-shadow: 3px 3px 12px #ed0c32, -3px -3px 12px #ed0c32;
+  }
+
   .see-works {
     background-image: linear-gradient(#ed0c32 0 0);
     background-size: 200% 0.08em;

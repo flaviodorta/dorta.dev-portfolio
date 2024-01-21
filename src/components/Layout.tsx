@@ -26,7 +26,8 @@ import Menu from './Menu'
 import { useSoundsContext } from '../context/SoundsContext'
 import Navbar from './Navbar'
 import { Footer } from './Footer'
-import { motion } from 'framer-motion'
+import Lenis from '@studio-freight/lenis'
+import ReactLenis from '@studio-freight/react-lenis'
 
 const Layout = ({
   children,
