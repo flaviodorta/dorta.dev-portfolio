@@ -6,6 +6,7 @@ import { SoundsProvider } from './context/SoundsContext'
 import { RecoilRoot } from 'recoil'
 import Intro from './pages/Intro'
 import About from './pages/About'
+import { Works } from './pages/Works'
 
 export function App() {
   return (
@@ -13,9 +14,9 @@ export function App() {
       <SoundsProvider>
         <Layout>
           <Routes>
-            <Route path="/" element={<Intro />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/works" element={<Works />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

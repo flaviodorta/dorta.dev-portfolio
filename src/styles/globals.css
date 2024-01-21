@@ -1,11 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
-
 @font-face {
   font-family: 'Neue Grotesk';
   font-weight: bold;
   src: url('../fonts/NeueHaasDisplay-Black.ttf');
+}
+
+@font-face {
+  font-family: 'Libertad Mono';
+  src: url('../fonts/libertad/-Light.eot');
+  src: local('Libertad Mono Light'), local('LibertadMono-Light'),
+    url('../fonts/libertad/LibertadMono-Light.eot?#iefix')
+      format('embedded-opentype'),
+    url('../fonts/libertad/LibertadMono-Light.woff2') format('woff2'),
+    url('../fonts/libertad/LibertadMono-Light.woff') format('woff'),
+    url('../fonts/libertad/LibertadMono-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
 
 @tailwind base;

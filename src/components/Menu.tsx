@@ -16,6 +16,7 @@ import { useHover } from 'usehooks-ts'
 
 type OptionProps = React.ComponentPropsWithoutRef<'li'> & {
   path: string
+  idx: number
   // text: string;
 }
 
@@ -27,45 +28,50 @@ const Option = (props: OptionProps) => {
   const isHovered = useHover(ref)
 
   return (
-    <div className="group  overflow-hidden relative w-fit h-fit">
-      <div
-        ref={ref}
-        onClick={() => {
-          setShouldTransition(true)
-          setRoute(props.path)
-        }}
-        className="flex h-fit cursor-pointer p-2  duration-[400ms] ease-[var(--ease)] group-hover:bg-primary font-anton text-7xl  uppercase"
-      >
-        <div className="flex">
-          {props.path.split('').map((l, i) => (
-            <motion.span
-              animate={
-                isHovered
-                  ? { y: -80, rotateX: 180, opacity: 0.1 }
-                  : { y: 0, rotateX: 0, opacity: 1 }
-              }
-              transition={{ duration: 0.4, delay: 0.02 * i }}
-              className="w-fit flex"
-            >
-              {l}
-            </motion.span>
-          ))}
-        </div>
+    <div className="relative group">
+      <span className="absolute group-hover:text-primary transition-colors text-[1.4rem] font-libertad flex-center w-6 h-6 top-2.5 -left-8">
+        0{props.idx + 1}
+      </span>
+      <div className="group overflow-hidden relative w-fit h-fit">
+        <div
+          ref={ref}
+          onClick={() => {
+            setShouldTransition(true)
+            setRoute(props.path)
+          }}
+          className="flex h-fit cursor-pointer p-2  duration-[400ms] ease-[var(--ease)] group-hover:bg-primary font-anton text-7xl  uppercase"
+        >
+          <div className="flex">
+            {props.path.split('').map((l, i) => (
+              <motion.span
+                animate={
+                  isHovered
+                    ? { y: -80, rotateX: 180, opacity: 0.1 }
+                    : { y: 0, rotateX: 0, opacity: 1 }
+                }
+                transition={{ duration: 0.4, delay: 0.02 * i }}
+                className="w-fit flex"
+              >
+                {l}
+              </motion.span>
+            ))}
+          </div>
 
-        <div className="flex absolute">
-          {props.path.split('').map((l, i) => (
-            <motion.span
-              animate={
-                isHovered
-                  ? { y: 0, rotateX: 0, opacity: 1 }
-                  : { y: 80, rotateX: -180, opacity: 0.1 }
-              }
-              transition={{ duration: 0.4, delay: 0.02 * i }}
-              className="w-fit flex"
-            >
-              {l}
-            </motion.span>
-          ))}
+          <div className="flex absolute">
+            {props.path.split('').map((l, i) => (
+              <motion.span
+                animate={
+                  isHovered
+                    ? { y: 0, rotateX: 0, opacity: 1 }
+                    : { y: 80, rotateX: -180, opacity: 0.1 }
+                }
+                transition={{ duration: 0.4, delay: 0.02 * i }}
+                className="w-fit flex"
+              >
+                {l}
+              </motion.span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -99,7 +105,7 @@ const Menu = () => {
             <div className="h-full w-full fixed">
               <ul className="h-full w-full flex flex-col items-center justify-center">
                 {links.map((link, idx) => (
-                  <Option key={idx} path={link}>
+                  <Option key={idx} idx={idx} path={link}>
                     {link}
                   </Option>
                 ))}

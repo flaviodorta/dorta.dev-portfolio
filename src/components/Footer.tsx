@@ -16,7 +16,7 @@ import { useToggle } from 'usehooks-ts'
 import { twMerge } from 'tailwind-merge'
 import HamburgerMenu from './HamburgerMenu'
 
-export const Footer = () => {
+export const Footer = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
   const [isSoundOn, setIsSoundOn] = useRecoilState(soundAtom)
   const setCursorVariant = useSetRecoilState(cursorVariantAtom)
   const [shouldOpenSocialIcons, toggleShouldOpenSocialIcons] = useToggle(false)
@@ -79,9 +79,9 @@ export const Footer = () => {
   return (
     <>
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 3.2, duration: 1 }}
+        initial={false}
+        animate={shouldAnimate ? { opacity: 0 } : { opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
         className="fixed left-[20px] bottom-[20px] md:left-[30px] md:bottom-[40px] z-[4000]"
       >
         {/* sound icon */}
@@ -101,7 +101,7 @@ export const Footer = () => {
               initial="hidden"
               animate="visible"
               exit="hidden"
-              className="hidden md:block top-4 left-2 md:absolute whitespace-nowrap font-share-tech font-white font-thin"
+              className="hidden md:block top-4 left-2 md:absolute whitespace-nowrap font-libertad font-thin font-white font-thin"
             >
               sound {isSoundOn ? 'off' : 'on'}
             </motion.div>
@@ -110,9 +110,9 @@ export const Footer = () => {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 3, duration: 1 }}
+        initial={false}
+        animate={shouldAnimate ? { opacity: 0 } : { opacity: 1 }}
+        transition={{ delay: 2.5, duration: 1 }}
         className="fixed right-[20px] bottom-[20px] md:right-[40px] md:bottom-[30px] z-[4000]"
       >
         <div className="z-[2000] w-fit h-[80px] flex items-end justify-end">

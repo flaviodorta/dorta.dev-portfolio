@@ -24,7 +24,7 @@ const Transition: React.FC<TransitionProps> = ({ onMount, onUnmount }) => {
   const tl = useRef<GSAPTimeline>()
   const ctx = useRef<ReturnType<typeof gsap.context>>()
 
-  const [route, setRoute] = useRecoilState(routerAtom)
+  const [route,] = useRecoilState(routerAtom)
 
   const setShouldTransition = useSetRecoilState(shouldTransitionAtom)
   const setIsMenuOpen = useSetRecoilState(isMenuOpenAtom)

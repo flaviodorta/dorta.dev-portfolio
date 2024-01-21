@@ -14,11 +14,8 @@ import {
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import Intro from '../pages/Intro'
 import Transition from './Transition'
-import { useFetcher, useLocation, useRoutes } from 'react-router-dom'
 import Menu from './Menu'
 import { useSoundsContext } from '../context/SoundsContext'
-import { Howl } from 'howler'
-import SpaceBackground from './canvas/Space'
 import Navbar from './Navbar'
 import { Footer } from './Footer'
 
@@ -84,20 +81,11 @@ const Layout = ({
     if (isFirstAccess) {
       timer = setTimeout(() => {
         setShouldTransition(true)
-      }, 2500)
+      }, 9000)
     }
 
     return () => clearTimeout(timer)
   }, [])
-
-  const setRoute = useSetRecoilState(routerAtom)
-
-  const location = useLocation()
-
-  useEffect(() => {
-    if (location.pathname === '/') setRoute('/home')
-    else setRoute(location.pathname)
-  }, [location])
 
   const { backgroundSoundRef } = useSoundsContext()
 
@@ -120,9 +108,19 @@ const Layout = ({
 
   const [x, y] = useState(0)
 
-  console.log(x)
-
   useEffect(() => y((s) => s + 1), [route])
+
+  // const isFirstAccess = useRecoilValue(firstAccessAtom)
+  const transitionFinished = useRecoilValue(transitionFinishedAtom)
+  const [shouldAnimateNavIcons, setShouldAnimateNavIcons] = useState(() => {
+    if (isFirstAccess) return true
+    else return false
+  })
+
+  useEffect(() => {
+    if (!isFirstAccess && shouldAnimateNavIcons === true)
+      setShouldAnimateNavIcons(false)
+  }, [transitionFinished])
 
   return (
     <div
@@ -153,22 +151,16 @@ const Layout = ({
         />
       )}
 
-      {isFirstAccess ? (
-        <Intro />
-      ) : (
-        <>
-          {route === '/home' && <SpaceBackground />}
+      {isFirstAccess && <Intro />}
 
-          <div
-            ref={r}
-            className="absolute flex justify-between items-center top-0 left-0 w-full h-full"
-          >
-            <Navbar />
-            {children}
-            <Footer />
-          </div>
-        </>
-      )}
+      <div
+        ref={r}
+        className="absolute flex justify-between items-center top-0 left-0 w-full h-full"
+      >
+        <Navbar shouldAnimate={shouldAnimateNavIcons} />
+        {children}
+        <Footer shouldAnimate={shouldAnimateNavIcons} />
+      </div>
     </div>
   )
 }
